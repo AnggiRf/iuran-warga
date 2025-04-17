@@ -79,4 +79,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(WalletMutation::class);
     }
+
+    /**
+     * Get user role.
+     */
+    public function getRoleAttribute()
+    {
+        return $this->attributes['role'];
+    }
 }
