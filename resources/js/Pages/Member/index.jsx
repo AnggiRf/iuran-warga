@@ -31,11 +31,13 @@ export default function MemberPage({ users: initialUsers, search: initialSearch 
         'bg-rose-400',
     ];
 
+    //create initial name if no pict
     const getInitials = (fullname) => {
         const names = fullname.trim().split(' ');
         return names[0][0] + (names[1]?.[0] || '');
     };
 
+    //avatar bg color
     const getColorForBg = (str) => {
         let hash = 0;
         for (let i = 0; i < str.length; i++) {
@@ -45,6 +47,7 @@ export default function MemberPage({ users: initialUsers, search: initialSearch 
         return avatarColors[index];
     };
 
+    //search on type
     function debounce(func, wait) {
         let timeout;
         return function (...args) {
@@ -64,7 +67,9 @@ export default function MemberPage({ users: initialUsers, search: initialSearch 
             },
         });
     }, 500)).current;
+    //////
 
+    //infinite scroll
     const fetchPage = (page, direction = 'down') => {
         if (isFetching) return;
         setIsFetching(true);
@@ -102,7 +107,7 @@ export default function MemberPage({ users: initialUsers, search: initialSearch 
             },
         });
     };
-
+    ////
     useEffect(() => {
         const el = scrollRef.current;
         const handleScroll = () => {
