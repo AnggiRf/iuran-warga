@@ -13,8 +13,11 @@ class RoleAccess
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
+        if (!in_array($request->user()?->role, $roles)) {
+            return redirect()->back();
+        }
         return $next($request);
     }
 }
