@@ -15,26 +15,41 @@ class ReportController extends Controller
         $user = \Auth::user();
         $finance = User::where('role', 'finance')->firstOrFail();
         $financeWallet = $finance->wallet;
+
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
         $start = $startDate ? Carbon::parse($startDate)->startOfDay() : null;
         $end = $endDate ? Carbon::parse($endDate)->endOfDay() : null;
 
-        $mutations = WalletMutation::with('user')
-            ->where('wallet_id', $financeWallet->id)
-            ->when($start && $end, function ($query) use ($start, $end) {
-                $query->whereBetween('created_at', [$start, $end]);
-            })
+        $mutationQuery = WalletMutation::with('user')
+            ->where('wallet_id', $financeWallet->id);
+
+        if ($start && $end) {
+            $mutationQuery->whereBetween('created_at', [$start, $end]);
+        }
+
+        if ($start && $end) {
+            $totalIn = (clone $mutationQuery)->where('type', 'in')->sum('amount');
+            $totalOut = (clone $mutationQuery)->where('type', 'out')->sum('amount');
+            $balance = $totalIn - $totalOut;
+            
+        }else{
+            $totalIn = $financeWallet->total_in;
+            $totalOut = $financeWallet->total_out;
+            $balance = $financeWallet->balance;
+        }
+        
+        $mutations = $mutationQuery
             ->orderByDesc('created_at')
             ->paginate(10)
             ->withQueryString();
 
         return inertia('Report/index', [
             'wallet' => [
-                'balance' => $financeWallet->balance,
-                'total_in' => $financeWallet->total_in,
-                'total_out' => $financeWallet->total_out,
+                'balance' => $balance,
+                'total_in' => $totalIn,
+                'total_out' => $totalOut,
             ],
             'mutations' => $mutations,
             'filters' => [

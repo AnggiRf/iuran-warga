@@ -9,6 +9,7 @@ export default function ReportPage({ wallet, mutations, filters }) {
     const [lastPage, setLastPage] = useState(mutations.last_page);
     const [isFetching, setIsFetching] = useState(false);
     const [isBalanceVisible, setIsBalanceVisible] = useState(true);
+    const [walletData, setWallet] = useState(wallet);
 
     const [filterMode, setFilterMode] = useState(filters.start_date && filters.end_date ? 'range' : 'all');
     const [startDate, setStartDate] = useState(filters.start_date || '');
@@ -90,6 +91,7 @@ export default function ReportPage({ wallet, mutations, filters }) {
                 setMutationList(page.props.mutations.data);
                 setCurrentPage(page.props.mutations.current_page);
                 setLastPage(page.props.mutations.last_page);
+                setWallet(page.props.wallet);
             }
         });
     };
@@ -130,7 +132,7 @@ export default function ReportPage({ wallet, mutations, filters }) {
                     <span className="text-gray-500 text-sm">Total saldo</span>
                     <div className="flex items-center gap-2">
                     <span className="font-bold text-lg tracking-widest">
-                        {isBalanceVisible ? toCurrency(wallet.balance) : "●●●●●●●●●"}
+                        {isBalanceVisible ? toCurrency(walletData.balance) : "●●●●●●●●●"}
                     </span>
                     <button onClick={() => setIsBalanceVisible(!isBalanceVisible)}>
                         {isBalanceVisible ? "🙈" : "👁️"}
@@ -190,14 +192,14 @@ export default function ReportPage({ wallet, mutations, filters }) {
                         style={{ backgroundColor: '#E2EBED', color: '#717680' }}
                     >
                         <div className="text-sm">Pemasukan</div>
-                        <div className="text-black font-bold">{toCurrency(wallet.total_in)}</div>
+                        <div className="text-black font-bold">{toCurrency(walletData.total_in)}</div>
                     </div>
                     <div 
                         className="rounded-lg p-3 w-[48%]"
                         style={{ backgroundColor: '#E2EBED', color: '#717680' }}
                     >
                         <div className="text-sm">Pengeluaran</div>
-                        <div className="text-black font-bold">{toCurrency(wallet.total_out)}</div>
+                        <div className="text-black font-bold">{toCurrency(walletData.total_out)}</div>
                     </div>
                 </div>
 
