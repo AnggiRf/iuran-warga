@@ -121,24 +121,24 @@ export default function ReportPage({ wallet, mutations, filters }) {
     };
 
     return (
-        <div className="bg-slate-100 min-h-screen flex flex-col items-center">
-            <div className="max-w-[480px] w-full bg-white px-6 pb-4 min-h-screen flex flex-col">
+        <div className="bg-slate-300 h-screen flex flex-col items-center">
+            <div className="max-w-[480px] w-full bg-white px-6 min-h-screen flex flex-col">
                 <a href="#" className="text-gray-500 text-sm">← Kembali</a>
                 <h1 className="text-lg font-semibold mt-4">Laporan iuran</h1>
                 <p className="text-gray-500 mb-4 text-sm">Laporan iuran warga Perumahan Jati Asih.</p>
 
                 <div className="bg-gray-100 rounded-xl p-4 mb-4">
-                <div className="flex flex-col items-start">
-                    <span className="text-gray-500 text-sm">Total saldo</span>
-                    <div className="flex items-center gap-2">
-                    <span className="font-bold text-lg tracking-widest">
-                        {isBalanceVisible ? toCurrency(walletData.balance) : "●●●●●●●●●"}
-                    </span>
-                    <button onClick={() => setIsBalanceVisible(!isBalanceVisible)}>
-                        {isBalanceVisible ? "🙈" : "👁️"}
-                    </button>
+                    <div className="flex flex-col items-start">
+                        <span className="text-gray-500 text-sm">Total saldo</span>
+                        <div className="flex items-center gap-2">
+                        <span className="font-bold text-lg tracking-widest">
+                            {isBalanceVisible ? toCurrency(walletData.balance) : "●●●●●●●●●"}
+                        </span>
+                        <button onClick={() => setIsBalanceVisible(!isBalanceVisible)}>
+                            {isBalanceVisible ? "🙈" : "👁️"}
+                        </button>
+                        </div>
                     </div>
-                </div>
                 </div>
 
                 {/* Filter Periode */}
@@ -203,41 +203,42 @@ export default function ReportPage({ wallet, mutations, filters }) {
                     </div>
                 </div>
 
-                <h2 className="text-md font-semibold mb-2"></h2>
-                <div ref={scrollRef} className="overflow-y-auto h-[320px] pr-2">
-                    {mutationList.map((m) => (
-                        <div key={m.id} className="flex justify-between mb-4 border-b pb-2">
-                            <div className="flex items-center gap-3">
-                            <div
-                                className="rounded-full w-8 h-8 flex items-center justify-center text-sm mt-1"
-                                style={{
-                                backgroundColor: m.type === 'in' ? '#DDE4FB' : '#F8E6DF',
-                                color: m.type === 'in' ? '#476BD7' : '#C9642C',
-                                }}
-                            >
-                                {m.type === 'in' ? '↗' : '↓'}
-                            </div>
+                <div className="flex-1 flex flex-col overflow-hidden">
+                    <div ref={scrollRef} className="overflow-y-auto flex-1 pr-2 pb-9">
+                            {mutationList.map((m) => (
+                                <div key={m.id} className="flex justify-between mb-4 border-b pb-2">
+                                    <div className="flex items-center gap-3">
+                                    <div
+                                        className="rounded-full w-8 h-8 flex items-center justify-center text-sm mt-1"
+                                        style={{
+                                        backgroundColor: m.type === 'in' ? '#DDE4FB' : '#F8E6DF',
+                                        color: m.type === 'in' ? '#476BD7' : '#C9642C',
+                                        }}
+                                    >
+                                        {m.type === 'in' ? '↗' : '↓'}
+                                    </div>
 
-                            <div className="flex flex-col justify-center">
-                                <span className="font-semibold">{m.user.fullname}</span>
-                                <span className="text-sm text-gray-500">{m.notes || '-'}</span>
-                            </div>
-                            </div>
+                                    <div className="flex flex-col justify-center">
+                                        <span className="font-semibold">{m.user.fullname}</span>
+                                        <span className="text-sm text-gray-500">{m.notes || '-'}</span>
+                                    </div>
+                                    </div>
 
-                            <div className="flex flex-col text-right">
-                            <span className={`font-semibold ${m.type === 'in' ? 'text-green-600' : 'text-red-600'}`}>
-                                {m.type === 'in' ? '+' : '-'} {toCurrency(m.amount)}
-                            </span>
-                            <span className="text-sm text-gray-500">{formatDate(m.created_at)}</span>
-                            </div>
-                        </div>
-                    ))}
+                                    <div className="flex flex-col text-right">
+                                    <span className={`font-semibold ${m.type === 'in' ? 'text-green-600' : 'text-red-600'}`}>
+                                        {m.type === 'in' ? '+' : '-'} {toCurrency(m.amount)}
+                                    </span>
+                                    <span className="text-sm text-gray-500">{formatDate(m.created_at)}</span>
+                                    </div>
+                                </div>
+                            ))}
 
-                    {isFetching && (
-                        <div className="text-center text-gray-400 text-sm py-4">
-                            Memuat data...
-                        </div>
-                    )}
+                            {isFetching && (
+                                <div className="text-center text-gray-400 text-sm py-4">
+                                    Memuat data...
+                                </div>
+                            )}
+                    </div>
                 </div>
             </div>
             <BottomMenu />
