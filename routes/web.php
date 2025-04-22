@@ -23,5 +23,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'profile']);
     Route::post('/logout', [LoginController::class, 'logout']);
     Route::get('/report', [ReportController::class, 'report']);
-    Route::get('/members', [MemberController::class, 'members']);
+    Route::get('/members', [MemberController::class, 'members'])->middleware('role:admin,finance');
 });
