@@ -16,84 +16,95 @@ export default function ReportPage({ wallet, mutations, filters }) {
     const [endDate, setEndDate] = useState(filters.end_date || '');
 
     const scrollRef = useRef(null);
+    const loadMoreRef = useRef(null);
 
     // Fungsi fetch data per page (infinite scroll)
-    const fetchPage = (page, direction = 'down') => {
-        if (isFetching) return;
+    const fetchPage = async (page) => {
+        if (isFetching || page > lastPage) return;
         setIsFetching(true);
-
-        const params = {
+    
+        const query = new URLSearchParams({
             page,
-            ...(filterMode === 'range' && { start_date: startDate, end_date: endDate }),
-        };
-
-        Inertia.get('/report', params, {
-            preserveScroll: true,
-            preserveState: true,
-            replace: true,
-            onSuccess: (pageData) => {
-                const newMutations = pageData.props.mutations.data;
-                const el = scrollRef.current;
-                const heightBefore = el?.scrollHeight || 0;
-
-                setMutationList((prev) => {
-                    const existingIds = new Set(prev.map((m) => m.id));
-                    const filtered = newMutations.filter((m) => !existingIds.has(m.id));
-                    return direction === 'down'
-                        ? [...prev, ...filtered]
-                        : [...filtered, ...prev];
-                });
-
-                requestAnimationFrame(() => {
-                    const heightAfter = el?.scrollHeight || 0;
-                    const heightDiff = heightAfter - heightBefore;
-                    if (direction === 'up' && el) {
-                        el.scrollTop += heightDiff;
-                    }
-                });
-
-                setCurrentPage(pageData.props.mutations.current_page);
-                setLastPage(pageData.props.mutations.last_page);
-                setIsFetching(false);
-            }
+            ...(filterMode === 'range' && {
+                start_date: startDate,
+                end_date: endDate,
+            }),
         });
+    
+        try {
+            const res = await fetch(`/report?${query.toString()}`, {
+                headers: {
+                    'Accept': 'application/json',
+                },
+            });
+    
+            if (!res.ok) throw new Error('Network response was not ok');
+    
+            const json = await res.json();
+            const newMutations = json.props.mutations.data;
+    
+            setMutationList((prev) => {
+                const existingIds = new Set(prev.map((m) => m.id));
+                const filtered = newMutations.filter((m) => !existingIds.has(m.id));
+                return [...prev, ...filtered];
+            });
+    
+            setCurrentPage(json.props.mutations.current_page);
+            setLastPage(json.props.mutations.last_page);
+        } catch (error) {
+            console.error('Fetch error:', error);
+        } finally {
+            setIsFetching(false);
+        }
     };
 
     // Infinite scroll listener
     useEffect(() => {
-        const el = scrollRef.current;
-        const handleScroll = () => {
-            if (!el) return;
-            const { scrollTop, scrollHeight, clientHeight } = el;
-
-            if (scrollTop + clientHeight >= scrollHeight - 100 && currentPage < lastPage) {
-                fetchPage(currentPage + 1, 'down');
-            }
-
-            if (scrollTop <= 100 && currentPage > 1) {
-                fetchPage(currentPage - 1, 'up');
-            }
-        };
-
-        el.addEventListener('scroll', handleScroll);
-        return () => el.removeEventListener('scroll', handleScroll);
+        if (!loadMoreRef.current) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && currentPage < lastPage && !isFetching) {
+                    fetchPage(currentPage + 1);
+                }
+            },
+            { rootMargin: '100px' }
+        );
+    
+        observer.observe(loadMoreRef.current);
+        return () => observer.disconnect();
     }, [currentPage, lastPage, isFetching]);
 
     // Fungsi filter utama
-    const applyFilter = (mode, start, end) => {
-        const params = mode === 'range' ? { start_date: start, end_date: end } : {};
-
-        Inertia.get('/report', params, {
-            preserveScroll: false,
-            preserveState: true,
-            replace: true,
-            onSuccess: (page) => {
-                setMutationList(page.props.mutations.data);
-                setCurrentPage(page.props.mutations.current_page);
-                setLastPage(page.props.mutations.last_page);
-                setWallet(page.props.wallet);
-            }
-        });
+    const applyFilter = async (mode, start, end) => {
+        const query = new URLSearchParams(
+            mode === 'range' ? { start_date: start, end_date: end } : {}
+        );
+    
+        setCurrentPage(1);
+        setIsFetching(true);
+    
+        try {
+            const res = await fetch(`/report?${query.toString()}`, {
+                headers: {
+                    'Accept': 'application/json',
+                },
+            });
+    
+            if (!res.ok) throw new Error('Network response was not ok');
+    
+            const json = await res.json();
+            const newWallet = json.props.wallet;
+            const newMutations = json.props.mutations;
+    
+            setWallet(newWallet);
+            setMutationList(newMutations.data);
+            setCurrentPage(newMutations.current_page);
+            setLastPage(newMutations.last_page);
+        } catch (error) {
+            console.error('Filter fetch error:', error);
+        } finally {
+            setIsFetching(false);
+        }
     };
 
     // Handler klik tombol Terapkan Filter
@@ -204,7 +215,7 @@ export default function ReportPage({ wallet, mutations, filters }) {
                 </div>
 
                 <div className="flex-1 flex flex-col overflow-hidden">
-                    <div ref={scrollRef} className="overflow-y-auto flex-1 pr-2 pb-9">
+                    <div ref={scrollRef} className="overflow-y-auto flex-1 pr-2">
                             {mutationList.map((m) => (
                                 <div key={m.id} className="flex justify-between mb-4 border-b pb-2">
                                     <div className="flex items-center gap-3">
@@ -238,6 +249,7 @@ export default function ReportPage({ wallet, mutations, filters }) {
                                     Memuat data...
                                 </div>
                             )}
+                            <div ref={loadMoreRef} className="h-10" />
                     </div>
                 </div>
             </div>

@@ -45,17 +45,23 @@ class ReportController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return inertia('Report/index', [
-            'wallet' => [
-                'balance' => $balance,
-                'total_in' => $totalIn,
-                'total_out' => $totalOut,
-            ],
-            'mutations' => $mutations,
-            'filters' => [
-                'start_date' => $startDate,
-                'end_date' => $endDate,
-            ]
-        ]);    
+            $responseData = [
+                'wallet' => [
+                    'balance' => $balance,
+                    'total_in' => $totalIn,
+                    'total_out' => $totalOut,
+                ],
+                'mutations' => $mutations,
+                    'filters' => [
+                        'start_date' => $startDate,
+                        'end_date' => $endDate,
+                ]
+            ];
+
+        if ($request->header('Accept') === 'application/json') {
+            return response()->json(['props' => $responseData]);
+        }
+
+        return inertia('Report/index', $responseData);   
     }
 }
