@@ -3,6 +3,7 @@ import { toCurrency } from "../../utils/format";
 import BottomMenu from "../../components/molecules/BottomMenu";
 import { router as Inertia } from '@inertiajs/react';
 import { useState } from 'react';
+import { ArrowLeft } from "lucide-react";
 
 export default function MemberPage({ users: initialUsers, search: initialSearch }) {
 
@@ -12,6 +13,7 @@ export default function MemberPage({ users: initialUsers, search: initialSearch 
     const [lastPage, setLastPage] = useState(initialUsers.last_page);
     const [isFetching, setIsFetching] = useState(false);
     const scrollRef = useRef(null);
+    const handleBack = () => window.history.back();
 
     const avatarColors = [
         'bg-red-400',
@@ -131,7 +133,10 @@ export default function MemberPage({ users: initialUsers, search: initialSearch 
         <div className="bg-slate-300 h-screen w-full flex flex-col items-center">
             <div className="max-w-[480px] w-full bg-white px-6 min-h-screen flex flex-col">
                 <div className="bg-[#E2EBED] -mx-6 px-6 pt-6 pb-12">
-                    <a href="#" className="text-gray-500 text-sm">← Kembali</a>
+                    <button onClick={handleBack} className="text-[#717680] text-sm flex items-center gap-1">
+                        <ArrowLeft size={14} className="text-[#717680]" />
+                        Kembali
+                    </button>
                     <h1 className="text-[17px] sm:text-[18px] font-bold text-[#111827] flex items-center gap-1 mt-4">
                         Daftar Warga
                     </h1>

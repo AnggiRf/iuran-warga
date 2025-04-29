@@ -21,7 +21,7 @@ export default function HomePage() {
     new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(value).replace(",00", "");
 
   return (
-    <div className="min-h-screen w-full bg-[#F5F6F7] flex justify-center">
+    <div className="bg-slate-300 min-h-screen w-full flex justify-center">
       <div className="w-full max-w-[480px] min-h-screen bg-white pb-24">
         <div className="bg-[#E2EBED] px-4 sm:px-6 pt-6 pb-12">
           <h1 className="text-[17px] sm:text-[18px] font-bold text-[#111827] flex items-center gap-1">

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { router as Inertia } from '@inertiajs/react';
 import { toCurrency } from "../../utils/format";
 import BottomMenu from "../../components/molecules/BottomMenu";
-import { Eye, EyeOff, ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { Eye, EyeOff, ArrowDownRight, ArrowUpRight, ArrowLeft } from "lucide-react";
 
 export default function ReportPage({ wallet, mutations, filters }) {
     const [mutationList, setMutationList] = useState(mutations.data);
@@ -18,6 +18,7 @@ export default function ReportPage({ wallet, mutations, filters }) {
 
     const scrollRef = useRef(null);
     const loadMoreRef = useRef(null);
+    const handleBack = () => window.history.back();
 
     // Fungsi fetch data per page (infinite scroll)
     const fetchPage = async (page) => {
@@ -136,7 +137,10 @@ export default function ReportPage({ wallet, mutations, filters }) {
         <div className="bg-slate-300 h-screen flex flex-col items-center">
             <div className="max-w-[480px] w-full bg-white px-6 min-h-screen flex flex-col">
                 <div className="bg-[#E2EBED] -mx-6 px-6 pt-6 pb-12">
-                    <a href="#" className="text-gray-500 text-sm">← Kembali</a>
+                    <button onClick={handleBack} className="text-[#717680] text-sm flex items-center gap-1">
+                        <ArrowLeft size={14} className="text-[#717680]" />
+                        Kembali
+                    </button>
                     <h1 className="text-[17px] sm:text-[18px] font-bold text-[#111827] flex items-center gap-1 mt-4">
                         Laporan Iuran
                     </h1>
