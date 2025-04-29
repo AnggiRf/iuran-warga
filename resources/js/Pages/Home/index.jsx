@@ -1,67 +1,105 @@
-import React from "react";
-import { toCurrency } from "../../utils/format";
+import React, { useState } from "react";
+import { Eye, EyeOff, ArrowDown, ArrowUp } from "lucide-react";
 import BottomMenu from "../../components/molecules/BottomMenu";
-import { usePage } from "@inertiajs/react";
 
 export default function HomePage() {
-    const { props } = usePage();
-    const { wallet, user, recent_payments } = props;
+  const [showBalance, setShowBalance] = useState(true);
 
-    return (
-        <div className="bg-slate-300 h-screen w-full flex flex-col items-center">
-            <div className="max-w-[480px] w-full bg-white py-4 px-6 min-h-screen flex flex-col">
-                <h1 className="text-lg font-bold">
-                    Malam Pak {user?.fullname}
-                </h1>
-                <div className="bg-gray-300 my-2 text-sm p-2 rounded-md">
-                    Pengumuman perayaan Agustus
-                </div>
-                <div className="flex flex-col gap-4 bg-gray-300 p-4 rounded-md">
+  const wallet = {
+    balance: 1124098235,
+    total_in: 120098235,
+    total_out: 24098235,
+  };
+
+  const recent_payments = [
+    { name: "Ahmad Jaelani", date: "Senin, 18 Nov 2024", amount: 10000, initials: "AJ", color: "bg-green-400" },
+    { name: "John Sunantra", date: "Senin, 18 Nov 2024", amount: 10000, initials: "JS", color: "bg-blue-500" },
+    { name: "Fauzi Ahmad", date: "Senin, 18 Nov 2024", amount: 10000, initials: "FA", color: "bg-lime-400" },
+  ];
+
+  const formatCurrency = (value) =>
+    new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(value).replace(",00", "");
+
+  return (
+    <div className="min-h-screen w-full bg-[#F5F6F7] flex justify-center">
+      <div className="w-full max-w-[480px] min-h-screen bg-white pb-24">
+
+        {/* Header */}
+        <div className="bg-[#E5EEF5] px-4 sm:px-6 pt-6 pb-12">
+          <h1 className="text-[17px] sm:text-[18px] font-bold text-[#111827] flex items-center gap-1">
+            Halo, Pak Bagus <span>👋</span>
+          </h1>
+          <p className="text-[13px] sm:text-[14px] text-[#6B7280] mt-1">
+            Berikut laporan iuran warga Perumahan Jati Asih 
+          </p>
+          <p className="text-[13px] sm:text-[14px] text-[#6B7280]">
+            tahun periode 2024.
+          </p>
+        </div>
+
+        {/* Wallet Card */}
+        <div className="bg-white mx-4 sm:mx-6 p-5 sm:p-6 rounded-2xl shadow-md -mt-6">
+          <div className="flex items-center justify-between">
+            <div className="text-gray-500 text-sm">Total saldo</div>
+          </div>
+          <div className="flex items-center text-[22px] sm:text-[24px] font-bold text-[#111827] mt-2">
+            <span className="min-w-[120px]">
+                {showBalance ? formatCurrency(wallet.balance) : "•••••••••••"}
+            </span>
+            <button onClick={() => setShowBalance(!showBalance)} className="ml-2">
+              {showBalance ? <Eye size={20} className="text-gray-400" /> : <EyeOff size={20} className="text-gray-400" />}
+            </button>
+          </div>
+
+          {/* Income & Outcome */}
+            <div className="flex justify-around items-start mt-6 gap-4 border-t pt-4">
+                <div className="flex-1 flex items-start gap-2 border-r pr-4">
+                    <div className="w-5 h-5 bg-[#7C3AED] rounded-full flex items-center justify-center">
+                        <ArrowUp size={12} className="text-white" />
+                    </div>
                     <div>
-                        <div className="text-sm">Total Saldo</div>
-                        <div className="text-lg font-bold">
-                        {wallet && toCurrency(wallet.balance)}
-                        </div>
-                    </div>
-                    <div className="flex flex-row justify-between gap-4">
-                        <div>
-                            <div className="text-sm">Total Pemasukan</div>
-                            <div className="text-lg font-bold">
-                            {wallet && toCurrency(wallet.total_in)}
-                            </div>
-                        </div>
-                        <div>
-                            <div className="text-sm">Total Pengeluaran</div>
-                            <div className="text-lg font-bold">
-                            {wallet && toCurrency(wallet.total_out)}
-                            </div>
-                        </div>
+                        <div className="text-xs text-gray-500">Pemasukan</div>
+                        <div className="text-sm font-semibold text-[#111827]">{formatCurrency(wallet.total_in)}</div>
                     </div>
                 </div>
-                <div className="text-lg font-bold mt-4 mb-2">
-                    Pembayaran Terakhir
-                </div>
-                <div className="flex flex-col gap-2">
-                    {recent_payments.map((item, index) => (
-                        <div className="flex flex-row justify-between border-b pb-2">
-                            <div>
-                                <div className="text-base font-bold">
-                                    {item.users}
-                                </div>
-                                <div>{toCurrency(item.total_amount)}</div>
-                            </div>
-                            <div>
-                                <div className="text-xs text-right">
-                                    Tanggal
-                                </div>
-                                <div>{item.paid_at}</div>
-                            </div>
-                        </div>
-                    ))}
-                    <div className="h-[50px]" />
+                <div className="flex-1 flex items-start gap-2 pl-4">
+                    <div className="w-5 h-5 bg-[#EF4444] rounded-full flex items-center justify-center">
+                        <ArrowDown size={12} className="text-white" />
+                    </div>
+                    <div>
+                        <div className="text-xs text-gray-500">Pengeluaran</div>
+                        <div className="text-sm font-semibold text-[#111827]">{formatCurrency(wallet.total_out)}</div>
+                    </div>
                 </div>
             </div>
-            <BottomMenu />
         </div>
-    );
+
+        {/* Recent Payments */}
+        <div className="px-4 sm:px-6 mt-8">
+          <h2 className="text-[16px] sm:text-[17px] font-bold text-[#111827] mb-3">
+            Pembayaran terakhir
+          </h2>
+          <div className="flex flex-col gap-4">
+            {recent_payments.map((item, index) => (
+              <div key={index} className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm ${item.color}`}>
+                    {item.initials}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-[#111827] text-sm sm:text-base">{item.name}</div>
+                    <div className="text-xs text-gray-500">{item.date}</div>
+                  </div>
+                </div>
+                <div className="text-[#16A34A] font-bold text-sm sm:text-base">
+                  + {formatCurrency(item.amount)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <BottomMenu/>
+    </div>
+  );
 }
