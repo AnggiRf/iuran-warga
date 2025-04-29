@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Eye, EyeOff, ArrowDown, ArrowUp } from "lucide-react";
+import { Eye, EyeOff, ArrowDownRight, ArrowUpRight } from "lucide-react";
 import BottomMenu from "../../components/molecules/BottomMenu";
 
 export default function HomePage() {
@@ -23,9 +23,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen w-full bg-[#F5F6F7] flex justify-center">
       <div className="w-full max-w-[480px] min-h-screen bg-white pb-24">
-
-        {/* Header */}
-        <div className="bg-[#E5EEF5] px-4 sm:px-6 pt-6 pb-12">
+        <div className="bg-[#E2EBED] px-4 sm:px-6 pt-6 pb-12">
           <h1 className="text-[17px] sm:text-[18px] font-bold text-[#111827] flex items-center gap-1">
             Halo, Pak Bagus <span>👋</span>
           </h1>
@@ -36,8 +34,6 @@ export default function HomePage() {
             tahun periode 2024.
           </p>
         </div>
-
-        {/* Wallet Card */}
         <div className="bg-white mx-4 sm:mx-6 p-5 sm:p-6 rounded-2xl shadow-md -mt-6">
           <div className="flex items-center justify-between">
             <div className="text-gray-500 text-sm">Total saldo</div>
@@ -51,11 +47,10 @@ export default function HomePage() {
             </button>
           </div>
 
-          {/* Income & Outcome */}
             <div className="flex justify-around items-start mt-6 gap-4 border-t pt-4">
                 <div className="flex-1 flex items-start gap-2 border-r pr-4">
                     <div className="w-5 h-5 bg-[#7C3AED] rounded-full flex items-center justify-center">
-                        <ArrowUp size={12} className="text-white" />
+                        <ArrowUpRight size={12} className="text-white" />
                     </div>
                     <div>
                         <div className="text-xs text-gray-500">Pemasukan</div>
@@ -64,7 +59,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex-1 flex items-start gap-2 pl-4">
                     <div className="w-5 h-5 bg-[#EF4444] rounded-full flex items-center justify-center">
-                        <ArrowDown size={12} className="text-white" />
+                        <ArrowDownRight size={12} className="text-white" />
                     </div>
                     <div>
                         <div className="text-xs text-gray-500">Pengeluaran</div>
@@ -74,7 +69,6 @@ export default function HomePage() {
             </div>
         </div>
 
-        {/* Recent Payments */}
         <div className="px-4 sm:px-6 mt-8">
           <h2 className="text-[16px] sm:text-[17px] font-bold text-[#111827] mb-3">
             Pembayaran terakhir

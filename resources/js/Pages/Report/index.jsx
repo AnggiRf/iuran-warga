@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { router as Inertia } from '@inertiajs/react';
 import { toCurrency } from "../../utils/format";
 import BottomMenu from "../../components/molecules/BottomMenu";
+import { Eye, EyeOff, ArrowDownRight, ArrowUpRight } from "lucide-react";
 
 export default function ReportPage({ wallet, mutations, filters }) {
     const [mutationList, setMutationList] = useState(mutations.data);
@@ -134,21 +135,26 @@ export default function ReportPage({ wallet, mutations, filters }) {
     return (
         <div className="bg-slate-300 h-screen flex flex-col items-center">
             <div className="max-w-[480px] w-full bg-white px-6 min-h-screen flex flex-col">
-                <a href="#" className="text-gray-500 text-sm">← Kembali</a>
-                <h1 className="text-lg font-semibold mt-4">Laporan iuran</h1>
-                <p className="text-gray-500 mb-4 text-sm">Laporan iuran warga Perumahan Jati Asih.</p>
-
-                <div className="bg-gray-100 rounded-xl p-4 mb-4">
-                    <div className="flex flex-col items-start">
-                        <span className="text-gray-500 text-sm">Total saldo</span>
-                        <div className="flex items-center gap-2">
-                        <span className="font-bold text-lg tracking-widest">
-                            {isBalanceVisible ? toCurrency(walletData.balance) : "●●●●●●●●●"}
+                <div className="bg-[#E2EBED] -mx-6 px-6 pt-6 pb-12">
+                    <a href="#" className="text-gray-500 text-sm">← Kembali</a>
+                    <h1 className="text-[17px] sm:text-[18px] font-bold text-[#111827] flex items-center gap-1 mt-4">
+                        Laporan Iuran
+                    </h1>
+                    <p className="text-[13px] sm:text-[14px] text-[#6B7280] mt-1">
+                        Laporan iuran warga Perumahan Jati Asih 
+                    </p>
+                </div>
+                <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-md -mt-6 mb-6">
+                    <div className="flex items-center justify-between">
+                        <div className="text-gray-500 text-sm">Total saldo</div>
+                    </div>
+                    <div className="flex items-center text-[20px] sm:text-[22px] font-bold text-[#111827] mt-1">
+                        <span className="min-w-[120px]">
+                            {isBalanceVisible ? toCurrency(walletData.balance) : "•••••••••••"}
                         </span>
-                        <button onClick={() => setIsBalanceVisible(!isBalanceVisible)}>
-                            {isBalanceVisible ? "🙈" : "👁️"}
+                        <button onClick={() => setIsBalanceVisible(!isBalanceVisible)} className="ml-2">
+                        {isBalanceVisible ? <Eye size={20} className="text-gray-400" /> : <EyeOff size={20} className="text-gray-400" />}
                         </button>
-                        </div>
                     </div>
                 </div>
 
@@ -156,7 +162,7 @@ export default function ReportPage({ wallet, mutations, filters }) {
                 <div className="flex justify-between items-center mb-2">
                     <h2 className="font-semibold text-md">Laporan Iuran</h2>
                     <select
-                        className="text-sm border rounded px-2 py-1"
+                        className="text-sm border-0 border-b border-dotted border-gray-400 rounded-none px-0 py-1 focus:outline-none focus:border-b focus:border-dotted"
                         value={filterMode}
                         onChange={(e) => {
                             const mode = e.target.value;
@@ -200,14 +206,14 @@ export default function ReportPage({ wallet, mutations, filters }) {
                 <div className="flex justify-between mb-4">
                     <div 
                         className="rounded-lg p-3 w-[48%]"
-                        style={{ backgroundColor: '#E2EBED', color: '#717680' }}
+                        style={{ backgroundColor: '#E2EBED'}}
                     >
                         <div className="text-sm">Pemasukan</div>
                         <div className="text-black font-bold">{toCurrency(walletData.total_in)}</div>
                     </div>
                     <div 
                         className="rounded-lg p-3 w-[48%]"
-                        style={{ backgroundColor: '#E2EBED', color: '#717680' }}
+                        style={{ backgroundColor: '#E2EBED'}}
                     >
                         <div className="text-sm">Pengeluaran</div>
                         <div className="text-black font-bold">{toCurrency(walletData.total_out)}</div>
@@ -226,7 +232,7 @@ export default function ReportPage({ wallet, mutations, filters }) {
                                         color: m.type === 'in' ? '#476BD7' : '#C9642C',
                                         }}
                                     >
-                                        {m.type === 'in' ? '↗' : '↓'}
+                                        {m.type === 'in' ? <ArrowUpRight size={12} className="text-[#476BD7]" /> : <ArrowDownRight size={12} className="text-[#C9642C]" />}
                                     </div>
 
                                     <div className="flex flex-col justify-center">

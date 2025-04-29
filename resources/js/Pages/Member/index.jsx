@@ -129,23 +129,29 @@ export default function MemberPage({ users: initialUsers, search: initialSearch 
 
     return (
         <div className="bg-slate-300 h-screen w-full flex flex-col items-center">
-            <div className="max-w-[480px] w-full bg-white py-4 px-6 min-h-screen flex flex-col">
-                <a href="#" className="text-gray-500 text-sm">← Kembali</a>
-                <h1 className="text-2xl font-semibold mt-4">Daftar Warga</h1>
-                <p className="text-gray-500 mb-4">Daftar warga Perumahan Jati Asih.</p>
-
-                <input
-                    type="text"
-                    className="w-full p-2 border rounded-lg mb-4"
-                    placeholder="Pencarian warga..."
-                    value={search}
-                    onChange={(e) => {
-                        const value = e.target.value;
-                        setSearch(value);
-                        debouncedSearch(value);
-                    }}
-                />
-
+            <div className="max-w-[480px] w-full bg-white px-6 min-h-screen flex flex-col">
+                <div className="bg-[#E2EBED] -mx-6 px-6 pt-6 pb-12">
+                    <a href="#" className="text-gray-500 text-sm">← Kembali</a>
+                    <h1 className="text-[17px] sm:text-[18px] font-bold text-[#111827] flex items-center gap-1 mt-4">
+                        Daftar Warga
+                    </h1>
+                    <p className="text-[13px] sm:text-[14px] text-[#6B7280] mt-1">
+                    Daftar warga Perumahan Jati Asih 
+                    </p>
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        className="w-full p-2 border rounded-lg mb-4 mt-4"
+                        placeholder="Pencarian warga..."
+                        value={search}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            setSearch(value);
+                            debouncedSearch(value);
+                        }}
+                    />
+                </div>
                 <div
                     ref={scrollRef}
                     className="overflow-y-auto flex-1 pr-2"
