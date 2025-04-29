@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\ReportController;
 use App\Http\Controllers\Frontend\MemberController;
+use App\Http\Controllers\FrontEnd\PaymentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,5 +24,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'profile']);
     Route::post('/logout', [LoginController::class, 'logout']);
     Route::get('/report', [ReportController::class, 'report']);
+    Route::get('/payment', [PaymentController::class, 'payment']);
     Route::get('/members', [MemberController::class, 'members'])->middleware('role:admin,finance');
 });

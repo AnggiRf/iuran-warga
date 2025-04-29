@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Http\Controllers\FrontEnd;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class PaymentController extends Controller
+{
+    public function payment() {
+        return inertia('Payment/index');
+    }
+}
