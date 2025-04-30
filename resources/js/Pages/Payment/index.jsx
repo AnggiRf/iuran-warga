@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BottomMenu from "../../components/molecules/BottomMenu";
 import { ArrowLeft, ChevronDown, ChevronUp, Check } from "lucide-react";
+import SlideButton from "../../components/atoms/SlideButton";
 
 export default function PaymentPage() {
   const handleBack = () => window.history.back();
@@ -145,9 +146,11 @@ export default function PaymentPage() {
               </p>
             </div>
             <p className="text-sm text-[#6B7280] mb-4">{totalMonths} Bulan</p>
-            <button className="w-full py-3 bg-[#7F56D9] text-white rounded-lg text-sm font-medium">
-              ➜ Geser untuk konfirmasi pembayaran
-            </button>
+            <SlideButton
+              onConfirm={() => {
+                window.location.href = "/payment/qr";
+              }}
+            />
           </div>
         </div>
         <BottomMenu />

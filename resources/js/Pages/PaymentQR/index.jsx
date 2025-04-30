@@ -54,7 +54,7 @@ export default function PaymentQRPage() {
           </div>
 
           {/* Button bawah */}
-          <button className="mt-8 w-full border rounded-lg py-3 text-sm text-[#111827]">
+          <button className="mt-4 w-full border rounded-lg py-3 text-sm text-[#111827]">
             Kembali ke beranda
           </button>
         </div>
