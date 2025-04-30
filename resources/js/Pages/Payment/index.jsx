@@ -136,7 +136,7 @@ export default function PaymentPage() {
             </label>
           </div>
         </div>
-        <div className="fixed bottom-14 left-0 right-0 z-50 w-full max-w-[480px] mx-auto bg-white">
+        <div className="fixed bottom-14 left-0 right-0 z-50 w-full max-w-[480px] mx-auto bg-[#EFF4F5]">
           <div className="px-4 py-4 border-b">
             <div className="flex justify-between items-center mb-1">
               <p className="text-sm text-[#6B7280]">Total pembayaran</p>
