@@ -145,7 +145,7 @@ export default function PaymentPage() {
                 Rp {totalPayment.toLocaleString("id-ID")}
               </p>
             </div>
-            <p className="text-sm text-[#6B7280] mb-4">{totalMonths} Bulan</p>
+            <p className="font-semibold text-[#111827] mb-4">{totalMonths} Bulan</p>
             <SlideButton
               onConfirm={() => {
                 window.location.href = "/payment/qr";

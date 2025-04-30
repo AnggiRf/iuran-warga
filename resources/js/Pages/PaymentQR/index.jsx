@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowLeft, Copy, Download, Share2 } from "lucide-react";
+import { ArrowLeft, Link, Download, Share2 } from "lucide-react";
 import BottomMenu from "../../components/molecules/BottomMenu";
 
 export default function PaymentQRPage() {
@@ -8,7 +8,6 @@ export default function PaymentQRPage() {
   return (
     <div className="min-h-screen bg-slate-300 flex justify-center overflow-hidden">
       <div className="w-full max-w-[480px] bg-white flex flex-col relative">
-
         <div className="bg-white px-4 pt-4 pb-2">
           <button onClick={handleBack} className="text-[#717680] text-sm flex items-center gap-1">
             <ArrowLeft size={14} className="text-[#717680]" />
@@ -38,15 +37,15 @@ export default function PaymentQRPage() {
 
             {/* Action buttons */}
             <div className="flex justify-around mt-6">
-              <button className="flex flex-col items-center text-xs text-[#6B7280]">
-                <Copy size={20} />
+              <button className="flex flex-col items-center text-xs text-[#111827]">
+                <Link size={20} />
                 Copy link
               </button>
-              <button className="flex flex-col items-center text-xs text-[#6B7280]">
+              <button className="flex flex-col items-center text-xs text-[#111827]">
                 <Share2 size={20} />
                 Share
               </button>
-              <button className="flex flex-col items-center text-xs text-[#6B7280]">
+              <button className="flex flex-col items-center text-xs text-[#111827]">
                 <Download size={20} />
                 Save
               </button>

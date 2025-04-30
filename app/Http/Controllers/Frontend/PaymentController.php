@@ -14,4 +14,8 @@ class PaymentController extends Controller
     public function paymentQR() {
         return inertia('PaymentQR/index');
     }
+
+    public function paymentSuccess() {
+        return inertia('PaymentSuccess/index');
+    }
 }

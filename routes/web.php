@@ -26,5 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/report', [ReportController::class, 'report']);
     Route::get('/payment', [PaymentController::class, 'payment']);
     Route::get('/payment/qr', [PaymentController::class, 'paymentQR']);
+    Route::get('/payment/success', [PaymentController::class, 'paymentSuccess']);
     Route::get('/members', [MemberController::class, 'members'])->middleware('role:admin,finance');
 });
