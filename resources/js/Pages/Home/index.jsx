@@ -4,6 +4,7 @@ import BottomMenu from "../../components/molecules/BottomMenu";
 
 export default function HomePage() {
   const [showBalance, setShowBalance] = useState(true);
+  const [showLoginNotification, setShowLoginNotification] = useState(true);
 
   const wallet = {
     balance: 1124098235,
@@ -93,6 +94,16 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+      {showLoginNotification && (
+        <div className="fixed bottom-20 w-full max-w-[480px] px-4 z-50 flex justify-center">
+          <div className="bg-[#666666] text-white text-sm px-4 py-4 rounded-xl shadow-md flex items-center justify-between w-full">
+            <span>Login berhasil</span>
+            <button onClick={() => setShowLoginNotification(false)} className="ml-4 text-[#B8B8B8] hover:text-white text-lg leading-none">
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
       <BottomMenu/>
     </div>
   );

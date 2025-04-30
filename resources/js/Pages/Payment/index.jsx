@@ -153,8 +153,8 @@ export default function PaymentPage() {
             />
           </div>
         </div>
-        <BottomMenu />
       </div>
+      <BottomMenu />
     </div>
   );
 }

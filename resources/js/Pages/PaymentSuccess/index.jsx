@@ -48,9 +48,9 @@ export default function PaymentSuccessPage() {
                         </button>
                     </div>
                     <a href="#" className="text-[#374151] text-sm underline">Kembali ke beranda</a>
-                </div>
-                <BottomMenu />        
+                </div>        
             </div>
+            <BottomMenu />
         </div>
     )
 }

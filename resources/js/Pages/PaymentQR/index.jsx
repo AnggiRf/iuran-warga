@@ -18,8 +18,6 @@ export default function PaymentQRPage() {
             Bayar iuran warga Perumahan Jati Asih tahun periode 2024.
           </p>
         </div>
-
-        {/* QR Card */}
         <div className="flex-1 flex flex-col px-4 pt-4 pb-[80px]">
           <div className="bg-[#EFF4F5] rounded-xl shadow-sm w-full px-4 py-8 text-center flex-1 min-h-[500px] flex flex-col justify-between">
             <p className="text-sm text-[#6B7280] mb-1">Pak Ahmad Darmaji</p>
@@ -34,8 +32,6 @@ export default function PaymentQRPage() {
             <p className="text-sm text-[#6B7280]">
               Batas waktu pembayaran <span className="font-semibold text-[#111827]">59:00</span>
             </p>
-
-            {/* Action buttons */}
             <div className="flex justify-around mt-6">
               <button className="flex flex-col items-center text-xs text-[#111827]">
                 <Link size={20} />
@@ -51,16 +47,12 @@ export default function PaymentQRPage() {
               </button>
             </div>
           </div>
-
-          {/* Button bawah */}
           <button className="mt-4 w-full border rounded-lg py-3 text-sm text-[#111827]">
             Kembali ke beranda
           </button>
         </div>
-
-        {/* Bottom Menu */}
-        <BottomMenu />
       </div>
+        <BottomMenu />
     </div>
   );
 }
