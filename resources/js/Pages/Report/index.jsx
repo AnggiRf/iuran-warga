@@ -212,14 +212,24 @@ export default function ReportPage({ wallet, mutations, filters }) {
                         className="rounded-lg p-3 w-[48%]"
                         style={{ backgroundColor: '#E2EBED'}}
                     >
-                        <div className="text-sm">Pemasukan</div>
+                        <div className="flex items-center gap-1.5 mb-1">
+                            <div className="w-4 h-4 rounded-full bg-[#6941C6] flex items-center justify-center">
+                                <ArrowDownRight size={12} className="text-white" />
+                            </div>
+                            <span className="text-sm text-[#717680] font-medium">Pemasukan</span>
+                        </div>
                         <div className="text-black font-bold">{toCurrency(walletData.total_in)}</div>
                     </div>
                     <div 
                         className="rounded-lg p-3 w-[48%]"
                         style={{ backgroundColor: '#E2EBED'}}
                     >
-                        <div className="text-sm">Pengeluaran</div>
+                        <div className="flex items-center gap-1.5 mb-1">
+                            <div className="w-4 h-4 rounded-full bg-[#F04438] flex items-center justify-center">
+                                <ArrowDownRight size={12} className="text-white" />
+                            </div>
+                            <span className="text-sm text-[#717680] font-medium">Pengeluaran</span>
+                        </div>
                         <div className="text-black font-bold">{toCurrency(walletData.total_out)}</div>
                     </div>
                 </div>

@@ -17,13 +17,9 @@ export default function LoginPage() {
             onSubmit={handleSubmit}
             className="bg-white rounded-2xl px-6 py-8 w-full max-w-[360px] shadow-md"
             >
-            <div className="flex items-center gap-3 mb-6">
-            <div className="relative w-8 h-6">
-                <div className="absolute left-0 top-0 w-5 h-5 bg-[#00BCD4] rounded-full z-10" />
-                <div className="absolute left-3 top-0 w-5 h-5 bg-[#FF5722] rounded-full z-0" />
-                <div className="absolute left-[12px] top-0 w-2.5 h-5 bg-black bg-opacity-20 rounded-full z-20" />
-            </div>
-            <div className="w-px h-4 bg-gray-300" />
+            <div className="flex items-center gap-1.5 mb-6">
+                <img src="/storage/photos/Logo.png" alt="Logo" className="w-8 h-6 object-contain" />
+                <div className="w-px h-4 bg-gray-300" />
                 <h2 className="ml-1 font-semibold text-lg text-gray-800">Login Iuran Warga</h2>
             </div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
