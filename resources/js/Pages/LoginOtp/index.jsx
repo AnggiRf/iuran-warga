@@ -35,7 +35,7 @@ export default function LoginOtpPage() {
             className="bg-white rounded-2xl px-6 py-8 w-full max-w-[360px] shadow-md"
             >
             <div className="flex items-center gap-1.5 mb-6">
-                <img src="/storage/photos/Logo.png" alt="Logo" className="w-8 h-6 object-contain" />
+                <img src="/images/Logo.png" alt="Logo" className="w-8 h-6 object-contain" />
                 <div className="w-px h-4 bg-gray-300" />
                 <h2 className="ml-1 font-semibold text-lg text-gray-800">Login Iuran Warga</h2>
             </div>

@@ -24,7 +24,7 @@ export default function PaymentQRPage() {
             <h2 className="text-2xl font-semibold text-[#111827] mb-4">Rp 50.000</h2>
             <div className="flex justify-center mb-4">
               <img
-                src="/storage/photos/qr_code.png"
+                src="/images/qr_code.png"
                 alt="QR Code"
                 className="w-60 h-60 rounded-lg bg-white object-contain"
               />
