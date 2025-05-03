@@ -162,6 +162,7 @@ class LoginController extends Controller
 
             // Redirect to home
             return redirect('/home')->with([
+                'login_success' => true,
                 'message' => 'Login berhasil',
             ]);
         } catch (\Exception $e) {

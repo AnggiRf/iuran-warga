@@ -35,10 +35,10 @@ class HomeController extends Controller
             'recent_payments' => $payments->map(function ($payment) {
                 return [
                     'id' => $payment->id,
-                    'notes' => $payment->notes,
+                    'photo' => $payment->photo,
                     'total_amount' => $payment->total_amount,
                     'paid_at' => $payment->paid_at?->format('d M Y'),
-                    'users' => $payment->walletMutations->map(fn($m) => $m->user->fullname),
+                    'fullname' => $payment->walletMutations->first()?->user->fullname,
                 ];
             }),
         ]);
